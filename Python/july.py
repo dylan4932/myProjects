@@ -151,6 +151,7 @@ def format(l1):
 ##################July 23th########################
 def lengthOfLongestSubstring(s):
     '''
+    LEETCODE #3
     Given a string s, find the length of the longest substring without
     repeating characters.
 
@@ -172,6 +173,45 @@ def lengthOfLongestSubstring(s):
             l += 1
         charSet.add(s[r])
         res = max(res, r-l+1)
+    return res
+
+def longestPalindrome(s):
+    '''
+    Given a string s, return the longest palindromic substring in s
+
+    >>> longestPalindrome('babad')
+    'bab'
+    >>> longestPalindrome('ccc')
+    'ccc'
+    >>> longestPalindrome('cbbd')
+    'bb'
+    >>> longestPalindrome('a')
+    'a'
+    >>> longestPalindrome('ac')
+    'a'
+    
+    '''
+    res = ""
+    resLen = 0
+        
+    for i in range(len(s)):
+            # odd length panlidrome
+        l, r = i, i
+        while l >= 0 and r < len(s) and s[l] == s[r]:
+            if (r - l + 1) > resLen:
+                res = s[l:r+1]
+                resLen = r - l + 1
+            l -= 1
+            r += 1
+               
+            # even length panlidrome
+        l, r = i, i+1
+        while l >= 0 and r < len(s) and s[l] == s[r]:
+            if (r-l + 1) > resLen:
+                res = s[l:r+1]
+                resLen = r - l + 1
+            l -= 1
+            r += 1
     return res
 
 # DocString Test
