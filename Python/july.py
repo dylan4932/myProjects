@@ -148,7 +148,32 @@ def format(l1):
     return int(s)
 
 
-##################Jult 7th########################
+##################July 23th########################
+def lengthOfLongestSubstring(s):
+    '''
+    Given a string s, find the length of the longest substring without
+    repeating characters.
+
+    >>> lengthOfLongestSubstring('bbbbb')
+    1
+    >>> lengthOfLongestSubstring('abcabcbb')
+    3
+    >>> lengthOfLongestSubstring('pwwkew')
+    3
+    >>> lengthOfLongestSubstring('')
+    0
+    '''
+    charSet = set()
+    l = 0
+    res = 0
+    for r in range(len(s)):
+        while s[r] in charSet:
+            charSet.remove(s[l])
+            l += 1
+        charSet.add(s[r])
+        res = max(res, r-l+1)
+    return res
+
 # DocString Test
 doctest.testmod()
 
