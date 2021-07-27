@@ -322,6 +322,43 @@ def removeNthFromEnd(head, n):
     first.next = first.next.next
     return cur.next
 
+
+def isValid(s):
+    '''
+    Given a string s containing just the characters
+    '(', ')', '{', '}', '[' and ']', determine if the
+    input string is valid.
+
+    An input string is valid if:
+
+    1. Open brackets must be closed by the same type of brackets.
+    2.Open brackets must be closed in the correct order
+
+    >>> isValid('()')
+    True
+    >>> isValid('()[]{}')
+    True
+    >>> isValid("(]")
+    False
+    >>> isValid("([)]")
+    False
+    >>> isValid("{[]}")
+    True
+    '''
+    symbol = {'[': ']',
+                  '(': ')',
+                  '{': '}'}
+    stack = []
+    for i in s:
+        if not stack:
+            stack.append(i)
+            continue
+        if i == symbol.get(stack[-1]):
+            stack.pop(-1)
+        else:
+            stack.append(i)
+    return stack == []
+
 # DocString Test
 doctest.testmod()
 
