@@ -291,6 +291,37 @@ def longestCommonPrefix(strs):
             break
     return res
 
+###########Jul 27th
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def removeNthFromEnd(head, n):
+    '''
+    Given the head of a linked list, remove the nth node from the
+    end of the list and return its head.
+    
+    '''
+    
+    cur = ListNode(0)
+    cur.next = head
+
+    length = 0
+    first = head
+        
+    while first:
+        length += 1
+        first = first.next
+    length -= n
+    first = cur
+    while length > 0:
+        length -= 1;
+        first = first.next
+    first.next = first.next.next
+    return cur.next
+
 # DocString Test
 doctest.testmod()
 
