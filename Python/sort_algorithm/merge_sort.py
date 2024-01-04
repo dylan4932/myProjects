@@ -24,6 +24,8 @@
 
 # Time complexity = O(n*log(n)). Divide and conquer sorting
 # Space complexity = O(n)
+
+
 def merge_sort(arr):
     """
     >>> merge_sort([5, 2, 8, 3, 1, 9, 4, 7, 6])

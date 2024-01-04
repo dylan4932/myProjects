@@ -1,4 +1,3 @@
-import unittest
 import re
 # import numpy
 
@@ -357,7 +356,138 @@ def min_subarray_len(target, nums):
         return 0
     return min(res)
 
+def erase_overlap(intervals):
+    """
+    Given an array of intervals where intervals[i] = [starti, endi],
+    return the minimum number of intervals you need to remove to make the rest
+    of the intervals non-overlapping.
+
+    >>> erase_overlap([[1, 2], [1, 2], [1, 2]])
+    [[1, 2]]
+    >>> erase_overlap([[1, 2], [2, 3], [3, 4], [1,3]])
+    [[1, 2], [2, 3], [3, 4]]
+    >>> erase_overlap([[1, 2], [2, 3]])
+    [[1, 2], [2, 3]]
+    >>> erase_overlap([[1, 2], [2, 4], [4, 6], [3, 5], [5, 7]])
+    [[1, 2], [2, 4], [4, 6]]
+    """
+    sorted_intervals = sorted(intervals, key=lambda x: x[1])
+
+    # Initialize variables
+    right = float('-inf')
+    merged = []
+
+    for interval in intervals:
+        start, end = interval
+
+        if start < right:
+            continue
+        else:
+            right = end
+            merged.append(interval)
+    return merged
 
 
-if __name__ == '__main__':
-    unittest.main()
+
+def is_rectangle_overlap(rec1, rec2):
+    """
+    An axis-aligned rectangle is represented as a list [x1, y1, x2, y2],
+    where (x1, y1) is the coordinate of its bottom-left corner, and (x2, y2)
+    is the coordinate of its top-right corner. Its top and bottom edges are
+    parallel to the X-axis, and its left and right edges are parallel to the Y-axis.
+
+    Two rectangles overlap if the area of their intersection is positive.
+    To be clear, two rectangles that only touch at the corner or edges do not overlap.
+
+    Given two axis-aligned rectangles rec1 and rec2, return true if they overlap,
+    otherwise return false.
+
+    >>> is_rectangle_overlap([0, 0, 2, 2], [1, 1, 3, 3])
+    True
+    >>> is_rectangle_overlap([0, 0, 1, 1], [1, 0, 2, 1])
+    False
+    >>> is_rectangle_overlap([0, 0, 1, 1], [2, 2, 3, 3])
+    False
+    """
+    # determine whether the area of any rectangle is 0
+    if rec1[0] == rec1[2] or rec1[1] == rec1[3] or rec2[0] == rec2[2] or rec2[1] == rec2[3]:
+        return False
+
+    # overlapping
+    return not (rec1[2] <= rec2[0] or
+                rec1[3] <= rec2[1] or
+                rec1[0] >= rec2[2] or
+                rec1[1] >= rec2[3])
+
+def combination_sum2(candidates, target):
+    """
+    Given a collection of candidate numbers (candidates) and a target number (target),
+    find all unique combinations in candidates where the candidate numbers sum to target.
+
+    Each number in candidates may only be used once in the combination.
+
+    Note: The solution set must not contain duplicate combinations.
+    >>> combination_sum2([10,1,2,7,6,1,5], 8)
+    [[1, 1, 6], [1, 2, 5], [1, 7], [2, 6]]
+    >>> combination_sum2([2, 5, 2, 1, 2], 5)
+    [[1, 2, 2], [5]]
+    >>>
+    """
+    res = []
+    candidates.sort()
+    n = len(candidates)
+
+    if n == 0:
+        return []
+
+    def dfs(begin, path, residue):
+
+        if residue == 0:
+            res.append(path[:])
+            return
+
+        for idx in range(begin, n):
+            if candidates[idx] > residue:
+                break
+            if idx > begin and candidates[idx - 1] == candidates[idx]:
+                continue
+
+            path.append(candidates[idx])
+            dfs(idx + 1, path, residue - candidates[idx])
+            path.pop()
+
+    dfs(0, [], target)
+    return res
+
+
+def jump(nums):
+    """
+    Given a 0-indexed array of integers nums of length n. You are initially
+    positioned at nums[0].
+
+    Each element nums[i] represents the maximum length of a forward jump from
+    index i. In other words, if you are at nums[i], you can jump to any nums[i + j]
+    where:
+
+    0 <= j <= nums[i] and
+    i + j < n
+    Return the minimum number of jumps to reach nums[n - 1]. The test cases are
+    generated such that you can reach nums[n - 1].
+
+    >>> jump([2, 3, 1, 1, 4])
+    2
+    >>> jump([2, 3, 0, 1, 4])
+    2
+    """
+    n = len(nums)
+    maxPos, end, step = 0, 0, 0
+    for i in range(n - 1):
+        if maxPos >= i:
+            maxPos = max(maxPos, i + nums[i])
+            if i == end:
+                end = maxPos
+                step += 1
+    return step
+
+
+
