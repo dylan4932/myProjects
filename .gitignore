@@ -1,2 +1,4 @@
 .DS_Store
-.DS_Store
+*.DS_Store
+Python/scrapper/src/guide
+Python/Django/frontend
