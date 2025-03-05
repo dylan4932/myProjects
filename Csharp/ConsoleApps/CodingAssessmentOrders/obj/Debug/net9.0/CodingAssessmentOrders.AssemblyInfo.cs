@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CodingAssessmentOrders")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d0f1c279bee152d5880ae24cf9f255b543e5e041")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c15cc3b186ad179ab87b075a31ebc6b46146a768")]
 [assembly: System.Reflection.AssemblyProductAttribute("CodingAssessmentOrders")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CodingAssessmentOrders")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

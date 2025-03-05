@@ -142,7 +142,8 @@ namespace CodingAssessmentOrders.Controllers
                     {
                         OrderId = content.Key,
                         Destination = content.Value?.Destination ?? "Unknown",
-                        IsScheduled = false // Default value
+                        IsScheduled = false, // Default value
+                        Service = content.Value?.Service ?? "regular"
                     };
                     orders.Add(newOrder);
                 }

@@ -28,7 +28,9 @@ class Program
         orderService.ScheduleOrders();
 
         Console.WriteLine("\nOrder Itineraries:");
-        orderService.DisplayOrders();
+
+        // int flightIdToCheck = 5;
+        orderService.DisplayAllOrders();
     }
 
 }

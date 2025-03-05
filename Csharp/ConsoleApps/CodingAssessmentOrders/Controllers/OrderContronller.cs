@@ -9,6 +9,12 @@ namespace CodingAssessmentOrders.Controllers
         private readonly List<Flight> _flights;
         private readonly Queue<Order> _orderQueue;
 
+        static readonly List<string> _orderPriority = new List<string>{
+            "same-day",
+            "next-day",
+            "regular"
+        };
+
         public OrderController(List<Flight> flights)
         {
             _flights = flights;
@@ -17,7 +23,8 @@ namespace CodingAssessmentOrders.Controllers
 
         public void ProcessOrders(List<Order> orders)
         {
-            foreach (var order in orders)
+            List<Order> sortedOrders = orders.OrderBy(i => _orderPriority.IndexOf(i.Service)).ToList();
+            foreach (var order in sortedOrders)
             {
                 _orderQueue.Enqueue(order);
             }
@@ -48,13 +55,24 @@ namespace CodingAssessmentOrders.Controllers
             }
         }
 
-        public void DisplayOrders()
+        public void DisplayOrders(List<int> flightIdToCheck)
         {
-            foreach (var flight in _flights)
-            {
-                foreach (var order in flight.LoadedOrders)
-                {
-                    Console.WriteLine($"Order: {order.OrderId}, FlightId: {flight.FlightId}, Departure: {flight.Departure}, Arrival: {flight.Arrival}, Day: {flight.Day}");
+            Flight? flightToCheckObj = _flights.Find(flight => flightIdToCheck.Contains(flight.FlightId)) ?? null;
+            if (flightToCheckObj!= null) {
+                foreach (var order in flightToCheckObj.LoadedOrders){
+                    Console.WriteLine($"Order: {order.OrderId} service-level: {order.Service}, FlightId: {flightToCheckObj.FlightId}, Departure: {flightToCheckObj.Departure}, Arrival: {flightToCheckObj.Arrival}, Day: {flightToCheckObj.Day}");
+                }
+            } else {
+                Console.WriteLine("No flight found.");
+            }
+            
+        }
+
+        public void DisplayAllOrders()
+        {
+            foreach(Flight flight in _flights) {
+                foreach(var order in flight.LoadedOrders) {
+                    Console.WriteLine($"Order: {order.OrderId} service-level: {order.Service}, FlightId: {flight.FlightId}, Departure: {flight.Departure}, Arrival: {flight.Arrival}, Day: {flight.Day}");
                 }
             }
         }
