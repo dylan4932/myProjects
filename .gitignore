@@ -2,3 +2,5 @@
 *.DS_Store
 Python/scrapper/src/guide
 Python/Django/frontend
+Python/ai_models/training
+Python/Django/frontend
